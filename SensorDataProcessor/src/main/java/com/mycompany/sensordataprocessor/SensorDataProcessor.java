@@ -21,11 +21,12 @@ this.limit = limit;
 // calculates average of sensor data
 private double average(double[] array) {
 int i = 0;
+double result = 0;
 double val = 0;
 for (i = 0; i < array.length; i++) {
-val += array[i];
+result= val += array[i];
 }
-return val / array.length;
+return result / array.length;
 }
 // calculate data
 public void calculate(double d) {
