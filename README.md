@@ -14,7 +14,6 @@
             <li>In the calculate method:
                 <ul>
                     <li>declaration of a variables "i,j,k" in the for loops</li>
-                    <li></li>
                 </ul>
             </li>
         </ol>
