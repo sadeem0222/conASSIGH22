@@ -7,25 +7,23 @@ package com.mycompany.sensordataprocessor;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;
+import java.IOException;
 
-/**
- *
- * @author USER
- */
 public class SensorDataProcessor {
 
-    // Senson data and limits.
+    // Sensor data and limits.
     public double[][][] data;
     public double[][] limit;
 
-    // constructor
+    // Constructor
     public SensorDataProcessor(double[][][] data, double[][] limit) {
     this.data = data;
     this.limit = limit;
     }
 
-    // calculates average of sensor data
+    // Calculates average of sensor data
     private double average(double[] array) {
+        
         double result = 0;
         for (int i = 0; i < array.length; i++) {
             result += array[i];
@@ -33,10 +31,11 @@ public class SensorDataProcessor {
         return result / array.length;
     }
 
-    // calculate data
+    // Calculate data
+
     public void calculate(double d) {
-    double[][][] data2 = new
-    double[data.length][data[0].length][data[0][0].length];
+
+    double[][][] data2 = new double[data.length][data[0].length][data[0][0].length];
     BufferedWriter out;
     // Write racing stats data into a file
     try {
@@ -68,8 +67,9 @@ public class SensorDataProcessor {
         }
         }
         out.close();
-        } catch (Exception e) {
-            System.out.println("Error= " + e);
+        } catch (IOException e) {
+            e.printStackTrace();
+            
         }
     }
 }
