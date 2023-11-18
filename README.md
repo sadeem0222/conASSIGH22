@@ -35,5 +35,19 @@
             </li>
         </ul>
     </li>
+      <li>Huda Abdullah , 2111852
+        <ul>
+            <li> Make changes to improved the understanding and readability of code :
+                <ol>
+                    <li>Renamed the "out" buffer to "outputWriter" providng more clear and decriptive name</li>
+                    <li>Renamed the "data" array to "sensorData" providng more clear and decriptive name.</li>
+                    <li>Renamed "limits" array to "sensorLimits" providng more clear and decriptive name</li>
+                    <li>Renamed the "d" varible to "divider" providng more clear and decriptive name</li>
+                    <li>Wrote more comments across the code to improve the reader's understanding of the code</li>
+                </ol>
+            </li>
+        </ul>
+    </li>
+
 
 </ul>

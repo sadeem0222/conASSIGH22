@@ -12,18 +12,18 @@ import java.IOException;
 public class SensorDataProcessor {
 
     // Sensor data and limits.
-    public double[][][] data;
-    public double[][] limit;
+    public double[][][] sensorData;
+    public double[][] sensorLimits;
 
     // Constructor
-    public SensorDataProcessor(double[][][] data, double[][] limit) {
-    this.data = data;
-    this.limit = limit;
+    public SensorDataProcessor(double[][][] sensorData, double[][] sensorLimits) {
+    this.sensorData = sensorData;
+    this.sensorLimits = sensorLimits;
     }
 
     // Calculates average of sensor data
     private double calculateAverage(double[] array) {
-        
+        // Calculate the average value of an array
         double result = 0;
 
         for (int i = 0; i < array.length; i++) {
@@ -33,31 +33,32 @@ public class SensorDataProcessor {
         return result / array.length;
     }
 
-    // Calculate data
-    public void calculate(double d) {
+    // Calculate processed data based on given divider
+    public void calculate(double divider) {
 
-        double[][][] processedData = new double[data.length][data[0].length][data[0][0].length];
-        BufferedWriter out;
+        double[][][] processedData = new double[sensorData.length][sensorData[0].length][sensorData[0][0].length];
+        BufferedWriter outputWriter;
 
         // Write racing stats data into a file
         try {
-                out = new BufferedWriter(new FileWriter("RacingStatsData.txt"));
+                outputWriter = new BufferedWriter(new FileWriter("RacingStatsData.txt"));
 
-                for (int i = 0; i < data.length; i++) {
+                // Iterate over sensor data dimensions
+                for (int i = 0; i < sensorData.length; i++) {
 
-                    for (int j = 0; j < data[0].length; j++) {
+                    for (int j = 0; j < sensorData[0].length; j++) {
 
-                        for (int k = 0; k < data[0][0].length; k++) {
-
-                            processedData[i][j][k] = data[i][j][k] / d - Math.pow(limit[i][j], 2.0);
-
+                        for (int k = 0; k < sensorData[0][0].length; k++) {
+                            // Process sensor data
+                            processedData[i][j][k] = sensorData[i][j][k] / divider - Math.pow(sensorLimits[i][j], 2.0);
+                            // Check conditions for processing data
                             if (calculateAverage(processedData[i][j]) > 10 && calculateAverage(processedData[i][j]) < 50)
                             break;
 
-                            else if (Math.max(data[i][j][k], processedData[i][j][k]) > data[i][j][k])
+                            else if (Math.max(sensorData[i][j][k], processedData[i][j][k]) > sensorData[i][j][k])
                             break;
 
-                            else if (Math.pow(Math.abs(data[i][j][k]), 3) < Math.pow(Math.abs(processedData[i][j][k]), 3) && calculateAverage(data[i][j]) < processedData[i][j][k] && (i + 1) * (j + 1) > 0)
+                            else if (Math.pow(Math.abs(sensorData[i][j][k]), 3) < Math.pow(Math.abs(processedData[i][j][k]), 3) && calculateAverage(sensorData[i][j]) < processedData[i][j][k] && (i + 1) * (j + 1) > 0)
                             processedData[i][j][k] *= 2;
 
                             else
@@ -66,19 +67,19 @@ public class SensorDataProcessor {
 
                     }
                 }
-
+                // Write processed data to the file
                 for (int i = 0; i < processedData.length; i++) {
 
                     for (int j = 0; j < processedData[0].length; j++) {
 
-                    out.write(processedData[i][j] + "\t");
+                    outputWriter.write(processedData[i][j] + "\t");
                     
                     }
                 }
-                
-                out.close();
-        } 
-            
+                // Close the BufferedWriter
+                outputWriter.close();
+            } 
+                // Handle IOException by printing the stack trace
                 catch (IOException e) {
                     e.printStackTrace();   
                 }
